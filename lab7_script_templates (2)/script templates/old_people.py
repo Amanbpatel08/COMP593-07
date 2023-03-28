@@ -11,6 +11,7 @@ import sqlite3
 import os
 import inspect 
 import csv
+import pandas as pd
 
 def main():
     global db_path
@@ -65,12 +66,14 @@ def save_name_and_age_to_csv(name_and_age_list, csv_path):
         csv_path (str): Path of CSV file
     """
     # TODO: Create function body
-    header=['name','age']
-    with open(csv_path, 'w', encoding='UTF8', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerow(name_and_age_list)
+    d={'name':[],'age':[]}
+    for name,age in name_and_age_list:
+        d['name'].append(name)
+        d['age'].append(age)
+    df=pd.DataFrame(d)
+    df.to_csv(csv_path)
 
+    
 
 
     return
